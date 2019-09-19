@@ -1,16 +1,80 @@
-# skeleton-generic #
+# findings-data-import-terraform #
 
-[![Build Status](https://travis-ci.com/cisagov/skeleton-generic.svg?branch=develop)](https://travis-ci.com/cisagov/skeleton-generic)
+[![Build Status](https://travis-ci.com/cisagov/findings-data-import-terraform.svg?branch=develop)](https://travis-ci.com/cisagov/findings-data-import-terraform)
 
-This is a generic skeleton project that can be used to quickly get a
-new [cisagov](https://github.com/cisagov) GitHub project started.
-This skeleton project contains [licensing information](LICENSE), as
-well as [pre-commit hooks](https://pre-commit.com) and a [Travis
-CI](https://travis-ci.com) configuration appropriate for the major
-languages that we use.
+## About ##
 
-In many cases you will instead want to use one of the more specific
-skeleton projects derived from this one.
+This project creates the resources used to import findings data into AWS.
+
+## Requirements ##
+
+* [AWS CLI access
+  configured](
+  https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
+  on your system
+* [Terraform installed](
+  https://learn.hashicorp.com/terraform/getting-started/install.html)
+  on your system
+
+## Customizing Your Environment ##
+
+Create a terraform variables file to be used for your environment (e.g.
+  `production.yml`), based on the variables listed in `variables.tf`.
+  Here is a sample of what that file might look like:
+
+```yaml
+aws_region = "us-east-1"
+
+aws_availability_zone = "a"
+
+tags = {
+  Team = "CISA Development Team"
+  Application = "Findings Data Import"
+  Workspace = "production"
+}
+```
+
+## Terraform Documentation ##
+
+<!-- markdownlint-disable MD003 MD013 MD022 MD033 -->
+<!-- BEGINNING OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+## Inputs ##
+
+| Name | Description | Type | Default | Required |
+|------|-------------|:----:|:-----:|:-----:|
+| findings\_data\_import\_lambda\_s3\_bucket | The name of the bucket where the findings data import lambda function will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name. | string | `""` | no |
+| findings\_data\_s3\_bucket | The name of the bucket where the findings data JSON file will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name. | string | `""` | no |
+| aws\_availability\_zone | The AWS availability zone to deploy into (e.g. a, b, c, etc.). | string | `"a"` | no |
+| aws\_region | The AWS region to deploy into (e.g. us-east-1). | string | `"us-east-1"` | no |
+| tags | Tags to apply to all AWS resources created | map | `{}` | no |
+
+<!-- END OF PRE-COMMIT-TERRAFORM DOCS HOOK -->
+<!-- markdownlint-enable MD003 MD013 MD022 MD033 -->
+
+## Building the Terraform-based infrastructure ##
+
+The Terraform-based infrastructure is built like so:
+
+```console
+terraform init
+
+# If you have not created your terraform workspace:
+terraform workspace new <your_workspace>
+
+# If you have previously created your terraform workspace:
+terraform workspace select <your_workspace>
+
+terraform apply -var-file=<your_workspace>.yml
+```
+
+## Tearing down the Terraform-based infrastructure ##
+
+The Terraform-based infrastructure is torn down like so:
+
+```console
+terraform workspace select <your_workspace>
+terraform destroy -var-file=<your_workspace>.yml
+```
 
 ## Contributing ##
 
