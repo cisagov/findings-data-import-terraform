@@ -1,31 +1,28 @@
 # findings-data-import-terraform #
 
-[![Build Status](https://travis-ci.com/cisagov/findings-data-import-terraform.svg?branch=develop)](https://travis-ci.com/cisagov/findings-data-import-terraform)
-
-## About ##
+[![GitHub Build Status](https://github.com/cisagov/findings-data-import-terraform/workflows/build/badge.svg)](https://github.com/cisagov/findings-data-import-terraform/actions)
 
 This project creates the resources used to import findings data into AWS.
 
-## Requirements ##
+## Pre-requisites ##
 
-* [AWS CLI access
-  configured](
-  https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
-  on your system
-* [Terraform installed](
-  https://learn.hashicorp.com/terraform/getting-started/install.html)
-  on your system
+- [Terraform](https://www.terraform.io/) installed on your system.
+- AWS CLI access
+  [configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+  for the appropriate account on your system.
+- An accessible AWS S3 bucket to store Terraform state
+  (specified [here](backend.tf)).
+- An accessible AWS DynamoDB database to store the Terraform state lock
+  (specified [here](backend.tf)).
 
 ## Customizing Your Environment ##
 
 Create a terraform variables file to be used for your environment (e.g.
-  `production.yml`), based on the variables listed in `variables.tf`.
-  Here is a sample of what that file might look like:
+  `production.tfvars`), based on the variables listed in [Inputs](#Inputs)
+  below. Here is a sample of what that file might look like:
 
-```yaml
-aws_region = "us-east-1"
-
-aws_availability_zone = "a"
+```hcl
+aws_region = "us-east-2"
 
 tags = {
   Team = "CISA Development Team"
@@ -34,42 +31,62 @@ tags = {
 }
 ```
 
-## Terraform Documentation ##
+## Building the Terraform-based infrastructure ##
+
+1. Create a Terraform workspace (if you haven't already done so) by running:
+
+   ```console
+   terraform workspace new <workspace_name>`
+   ```
+
+1. Create a `<workspace_name>.tfvars` file with all of the required
+   variables and any optional variables desired (see [Inputs](#Inputs) below
+   for details).
+1. Run the command `terraform init`.
+1. Create the Terraform infrastructure by running the command:
+
+   ```console
+   terraform apply -var-file=<workspace_name>.tfvars
+   ```
+
+## Tearing down the Terraform-based infrastructure ##
+
+1. Select the appropriate Terraform workspace by running
+   `terraform workspace select <workspace_name>`.
+1. Destroy the Terraform infrastruce in that workspace by running
+   `terraform destroy -var-file=<workspace_name>.tfvars`.
+
+## Requirements ##
+
+| Name | Version |
+|------|---------|
+| terraform | ~> 0.12.0 |
+| aws | ~> 2.0 |
+
+## Providers ##
+
+| Name | Version |
+|------|---------|
+| aws | ~> 2.0 |
 
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| findings\_data\_import\_lambda\_s3\_bucket | The name of the bucket where the findings data import lambda function will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name. | string | `""` | no |
-| findings\_data\_s3\_bucket | The name of the bucket where the findings data JSON file will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name. | string | `""` | no |
-| aws\_availability\_zone | The AWS availability zone to deploy into (e.g. a, b, c, etc.). | string | `"a"` | no |
-| aws\_region | The AWS region to deploy into (e.g. us-east-1). | string | `"us-east-1"` | no |
-| tags | Tags to apply to all AWS resources created | map | `{}` | no |
+|------|-------------|------|---------|:--------:|
+| aws_availability_zone | The AWS availability zone to deploy into (e.g. a, b, c, etc.) | `string` | `a` | no |
+| aws_region | The AWS region to deploy into (e.g. us-east-1) | `string` | `us-east-1` | no |
+| findings_data_import_lambda_s3_bucket | The name of the bucket where the findings data import lambda function will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name. | `string` | `findings-data-import-lambda` | no |
+| findings_data_s3_bucket | The name of the bucket where the findings data JSON file will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name. | `string` | `findings-data` | no |
+| tags | Tags to apply to all AWS resources created | `map(string)` | `{}` | no |
 
-## Building the Terraform-based infrastructure ##
+## Outputs ##
 
-The Terraform-based infrastructure is built like so:
+No output.
 
-```console
-terraform init
+## Notes ##
 
-# If you have not created your terraform workspace:
-terraform workspace new <your_workspace>
-
-# If you have previously created your terraform workspace:
-terraform workspace select <your_workspace>
-
-terraform apply -var-file=<your_workspace>.yml
-```
-
-## Tearing down the Terraform-based infrastructure ##
-
-The Terraform-based infrastructure is torn down like so:
-
-```console
-terraform workspace select <your_workspace>
-terraform destroy -var-file=<your_workspace>.yml
-```
+Running `pre-commit` requires running `terraform init` in every directory that
+contains Terraform code. In this repository, this is only the main directory.
 
 ## Contributing ##
 
