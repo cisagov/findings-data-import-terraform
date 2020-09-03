@@ -33,10 +33,11 @@ tags = {
 
 ## Building the Terraform-based infrastructure ##
 
-1. Create a Terraform workspace (if you haven't already done so) for
-   your assessment by running `terraform workspace new <workspace_name>`.
+1. Create a Terraform workspace (if you haven't already done so) by running
+   `terraform workspace new <workspace_name>`.
 1. Create a `<workspace_name>.tfvars` file with all of the required
-   variables (see [Inputs](#Inputs) below for details).
+   variables and any optional variables desired (see [Inputs](#Inputs) below
+   for details).
 1. Run the command `terraform init`.
 1. Create the Terraform infrastructure by running the command:
 
