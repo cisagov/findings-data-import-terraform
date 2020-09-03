@@ -1,12 +1,10 @@
 # findings-data-import-terraform #
 
-[![Build Status](https://travis-ci.com/cisagov/findings-data-import-terraform.svg?branch=develop)](https://travis-ci.com/cisagov/findings-data-import-terraform)
-
-## About ##
+[![GitHub Build Status](https://github.com/cisagov/skeleton-tf-module/workflows/build/badge.svg)](https://github.com/cisagov/skeleton-tf-module/actions)
 
 This project creates the resources used to import findings data into AWS.
 
-## Requirements ##
+## Pre-requisites ##
 
 * [AWS CLI access
   configured](
@@ -34,18 +32,6 @@ tags = {
 }
 ```
 
-## Terraform Documentation ##
-
-## Inputs ##
-
-| Name | Description | Type | Default | Required |
-|------|-------------|:----:|:-----:|:-----:|
-| findings\_data\_import\_lambda\_s3\_bucket | The name of the bucket where the findings data import lambda function will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name. | string | `""` | no |
-| findings\_data\_s3\_bucket | The name of the bucket where the findings data JSON file will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name. | string | `""` | no |
-| aws\_availability\_zone | The AWS availability zone to deploy into (e.g. a, b, c, etc.). | string | `"a"` | no |
-| aws\_region | The AWS region to deploy into (e.g. us-east-1). | string | `"us-east-1"` | no |
-| tags | Tags to apply to all AWS resources created | map | `{}` | no |
-
 ## Building the Terraform-based infrastructure ##
 
 The Terraform-based infrastructure is built like so:
@@ -70,6 +56,33 @@ The Terraform-based infrastructure is torn down like so:
 terraform workspace select <your_workspace>
 terraform destroy -var-file=<your_workspace>.yml
 ```
+
+## Requirements ##
+
+| Name | Version |
+|------|---------|
+| terraform | ~> 0.12.0 |
+| aws | ~> 2.0 |
+
+## Providers ##
+
+| Name | Version |
+|------|---------|
+| aws | ~> 2.0 |
+
+## Inputs ##
+
+| Name | Description | Type | Default | Required |
+|------|-------------|------|---------|:--------:|
+| aws_availability_zone | The AWS availability zone to deploy into (e.g. a, b, c, etc.) | `string` | `a` | no |
+| aws_region | The AWS region to deploy into (e.g. us-east-1) | `string` | `us-east-1` | no |
+| findings_data_import_lambda_s3_bucket | The name of the bucket where the findings data import lambda function will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name. | `string` | `findings-data-import-lambda` | no |
+| findings_data_s3_bucket | The name of the bucket where the findings data JSON file will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name. | `string` | `findings-data` | no |
+| tags | Tags to apply to all AWS resources created | `map(string)` | `{}` | no |
+
+## Outputs ##
+
+No output.
 
 ## Contributing ##
 
