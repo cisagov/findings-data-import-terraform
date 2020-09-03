@@ -6,13 +6,14 @@ This project creates the resources used to import findings data into AWS.
 
 ## Pre-requisites ##
 
-* [AWS CLI access
-  configured](
-  https://docs.aws.amazon.com/cli/latest/userguide/cli-chap-configure.html)
-  on your system
-* [Terraform installed](
-  https://learn.hashicorp.com/terraform/getting-started/install.html)
-  on your system
+- [Terraform](https://www.terraform.io/) installed on your system.
+- AWS CLI access
+  [configured](https://docs.aws.amazon.com/cli/latest/userguide/cli-configure-files.html)
+  for the appropriate account on your system.
+- An accessible AWS S3 bucket to store Terraform state
+  (specified [here](backend.tf)).
+- An accessible AWS DynamoDB database to store the Terraform state lock
+  (specified [here](backend.tf)).
 
 ## Customizing Your Environment ##
 
