@@ -18,13 +18,11 @@ This project creates the resources used to import findings data into AWS.
 ## Customizing Your Environment ##
 
 Create a terraform variables file to be used for your environment (e.g.
-  `production.tfvars`), based on the variables listed in `variables.tf`.
-  Here is a sample of what that file might look like:
+  `production.tfvars`), based on the variables listed in [Inputs](#Inputs)
+  below. Here is a sample of what that file might look like:
 
 ```hcl
-aws_region = "us-east-1"
-
-aws_availability_zone = "a"
+aws_region = "us-east-2"
 
 tags = {
   Team = "CISA Development Team"
