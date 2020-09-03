@@ -1,6 +1,6 @@
 # findings-data-import-terraform #
 
-[![GitHub Build Status](https://github.com/cisagov/skeleton-tf-module/workflows/build/badge.svg)](https://github.com/cisagov/skeleton-tf-module/actions)
+[![GitHub Build Status](https://github.com/cisagov/findings-data-import-terraform/workflows/build/badge.svg)](https://github.com/cisagov/findings-data-import-terraform/actions)
 
 This project creates the resources used to import findings data into AWS.
 
