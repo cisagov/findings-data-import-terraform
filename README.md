@@ -17,10 +17,10 @@ This project creates the resources used to import findings data into AWS.
 ## Customizing Your Environment ##
 
 Create a terraform variables file to be used for your environment (e.g.
-  `production.yml`), based on the variables listed in `variables.tf`.
+  `production.tfvars`), based on the variables listed in `variables.tf`.
   Here is a sample of what that file might look like:
 
-```yaml
+```hcl
 aws_region = "us-east-1"
 
 aws_availability_zone = "a"
@@ -34,28 +34,23 @@ tags = {
 
 ## Building the Terraform-based infrastructure ##
 
-The Terraform-based infrastructure is built like so:
+1. Create a Terraform workspace (if you haven't already done so) for
+   your assessment by running `terraform workspace new <workspace_name>`.
+1. Create a `<workspace_name>.tfvars` file with all of the required
+   variables (see [Inputs](#Inputs) below for details).
+1. Run the command `terraform init`.
+1. Create the Terraform infrastructure by running the command:
 
-```console
-terraform init
-
-# If you have not created your terraform workspace:
-terraform workspace new <your_workspace>
-
-# If you have previously created your terraform workspace:
-terraform workspace select <your_workspace>
-
-terraform apply -var-file=<your_workspace>.yml
-```
+   ```console
+   terraform apply -var-file=<workspace_name>.tfvars
+   ```
 
 ## Tearing down the Terraform-based infrastructure ##
 
-The Terraform-based infrastructure is torn down like so:
-
-```console
-terraform workspace select <your_workspace>
-terraform destroy -var-file=<your_workspace>.yml
-```
+1. Select the appropriate Terraform workspace by running
+   `terraform workspace select <workspace_name>`.
+1. Destroy the Terraform infrastruce in that workspace by running
+   `terraform destroy -var-file=<workspace_name>.tfvars`.
 
 ## Requirements ##
 
