@@ -10,12 +10,6 @@
 # These parameters have reasonable defaults.
 # ------------------------------------------------------------------------------
 
-variable "aws_availability_zone" {
-  type        = string
-  description = "The AWS availability zone to deploy into (e.g. a, b, c, etc.)"
-  default     = "a"
-}
-
 variable "aws_region" {
   type        = string
   description = "The AWS region to deploy into (e.g. us-east-1)"

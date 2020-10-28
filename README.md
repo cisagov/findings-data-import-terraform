@@ -61,19 +61,18 @@ tags = {
 | Name | Version |
 |------|---------|
 | terraform | ~> 0.12.0 |
-| aws | ~> 2.0 |
+| aws | ~> 3.0 |
 
 ## Providers ##
 
 | Name | Version |
 |------|---------|
-| aws | ~> 2.0 |
+| aws | ~> 3.0 |
 
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
 |------|-------------|------|---------|:--------:|
-| aws_availability_zone | The AWS availability zone to deploy into (e.g. a, b, c, etc.) | `string` | `a` | no |
 | aws_region | The AWS region to deploy into (e.g. us-east-1) | `string` | `us-east-1` | no |
 | findings_data_import_lambda_s3_bucket | The name of the bucket where the findings data import lambda function will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name. | `string` | `findings-data-import-lambda` | no |
 | findings_data_s3_bucket | The name of the bucket where the findings data JSON file will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name. | `string` | `findings-data` | no |
@@ -90,7 +89,7 @@ contains Terraform code. In this repository, this is only the main directory.
 
 ## Contributing ##
 
-We welcome contributions!  Please see [here](CONTRIBUTING.md) for
+We welcome contributions!  Please see [`CONTRIBUTING.md`](CONTRIBUTING.md) for
 details.
 
 ## License ##
