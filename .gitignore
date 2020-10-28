@@ -2,6 +2,6 @@ __pycache__
 .mypy_cache
 .python-version
 .terraform
+*.tfvars
 terraform.tfstate
 terraform.tfstate.backup
-*.tfvars
