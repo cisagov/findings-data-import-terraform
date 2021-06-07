@@ -14,12 +14,9 @@ resource "aws_s3_bucket" "exported_data" {
     }
   }
 
-  tags = merge(
-    var.tags,
-    {
-      "Name" = "Exported Findings Data"
-    },
-  )
+  tags = {
+    "Name" = "Exported Findings Data"
+  }
 
   lifecycle {
     prevent_destroy = true

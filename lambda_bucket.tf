@@ -18,12 +18,9 @@ resource "aws_s3_bucket" "fdi_lambda" {
     }
   }
 
-  tags = merge(
-    var.tags,
-    {
-      "Name" = "Findings Data Import Lambda"
-    },
-  )
+  tags = {
+    "Name" = "Findings Data Import Lambda"
+  }
 
   lifecycle {
     prevent_destroy = true
