@@ -10,19 +10,36 @@ resource "aws_s3_bucket" "fdi_lambda" {
     terraform.workspace,
   )
 
-  server_side_encryption_configuration {
-    rule {
-      apply_server_side_encryption_by_default {
-        sse_algorithm = "AES256"
-      }
-    }
-  }
-
   tags = {
     "Name" = "Findings Data Import Lambda"
   }
 
   lifecycle {
+    ignore_changes = [
+      server_side_encryption_configuration
+    ]
     prevent_destroy = true
   }
+}
+
+# Ensure the S3 bucket is encrypted
+resource "aws_s3_bucket_server_side_encryption_configuration" "fdi_lambda" {
+  bucket = aws_s3_bucket.fdi_lambda.id
+
+  rule {
+    apply_server_side_encryption_by_default {
+      sse_algorithm = "AES256"
+    }
+  }
+}
+
+# This blocks ANY public access to the bucket or the objects it
+# contains, even if misconfigured to allow public access.
+resource "aws_s3_bucket_public_access_block" "fdi_lambda" {
+  bucket = aws_s3_bucket.fdi_lambda.id
+
+  block_public_acls       = true
+  block_public_policy     = true
+  ignore_public_acls      = true
+  restrict_public_buckets = true
 }
