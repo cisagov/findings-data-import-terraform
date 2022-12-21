@@ -7,7 +7,7 @@ data "aws_iam_policy_document" "exported_data_bucket" {
   statement {
     principals {
       type        = "AWS"
-      identifiers = ["${var.findings_data_bucket_access_role_arn}"]
+      identifiers = [var.findings_data_bucket_access_role_arn]
     }
 
     actions = [
