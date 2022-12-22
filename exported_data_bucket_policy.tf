@@ -15,7 +15,7 @@ data "aws_iam_policy_document" "exported_data_bucket" {
     ]
 
     resources = [
-      "${aws_s3_bucket.exported_data.arn}/${var.findings_data_bucket_object_name_pattern}",
+      "${aws_s3_bucket.exported_data.arn}/${var.findings_data_bucket_object_key_pattern}",
     ]
   }
 }
