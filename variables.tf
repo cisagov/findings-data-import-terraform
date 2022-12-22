@@ -4,6 +4,11 @@
 # You must provide a value for each of these parameters.
 # ------------------------------------------------------------------------------
 
+variable "findings_data_bucket_access_role_arn" {
+  type        = string
+  description = "The ARN of the IAM role that is allowed to access the S3 bucket containing the findings data."
+}
+
 # ------------------------------------------------------------------------------
 # OPTIONAL PARAMETERS
 #
@@ -14,6 +19,12 @@ variable "aws_region" {
   type        = string
   description = "The AWS region to deploy into (e.g. us-east-1)."
   default     = "us-east-1"
+}
+
+variable "findings_data_bucket_object_name_pattern" {
+  type        = string
+  description = "The name pattern specifying which objects are allowed to be written to the findings data S3 bucket."
+  default     = "*-data.json"
 }
 
 variable "findings_data_import_lambda_s3_bucket" {
