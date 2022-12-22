@@ -21,9 +21,9 @@ variable "aws_region" {
   default     = "us-east-1"
 }
 
-variable "findings_data_bucket_object_name_pattern" {
+variable "findings_data_bucket_object_key_pattern" {
   type        = string
-  description = "The name pattern specifying which objects are allowed to be written to the findings data S3 bucket."
+  description = "The key pattern specifying which objects are allowed to be written to the findings data S3 bucket."
   default     = "*-data.json"
 }
 
