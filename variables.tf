@@ -29,7 +29,7 @@ variable "findings_data_bucket_object_key_pattern" {
 
 variable "findings_data_import_lambda_s3_bucket" {
   type        = string
-  description = "The name of the bucket where the findings data import lambda function will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name."
+  description = "The name of the bucket where the findings data import Lambda function will be stored.  Note that in production terraform workspaces, the string '-production' will be appended to the bucket name.  In non-production workspaces, '-<workspace_name>' will be appended to the bucket name."
   default     = "findings-data-import-lambda"
 }
 
