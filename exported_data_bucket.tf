@@ -1,5 +1,5 @@
-# This bucket is used to store a JSON file containing all exported
-# findings data to be imported into our AWS database.
+# This bucket stores JSON files containing exported assessment findings data
+# to be imported into our MongoDB database in AWS.
 resource "aws_s3_bucket" "exported_data" {
   # Note that in production terraform workspaces, the string '-production' is
   # appended to the bucket name.  In non-production workspaces,
