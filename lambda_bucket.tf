@@ -1,4 +1,4 @@
-# This bucket is used to store the lambda function that imports findings
+# This bucket is used to store the Lambda function that imports findings
 # data from the exported_data bucket into the CyHy database.
 resource "aws_s3_bucket" "fdi_lambda" {
   # Note that in production terraform workspaces, the string '-production' is
