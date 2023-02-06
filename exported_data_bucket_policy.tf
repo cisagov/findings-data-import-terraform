@@ -1,9 +1,13 @@
 resource "aws_s3_bucket_policy" "exported_data" {
+  count = local.allow_external_access
+
   bucket = aws_s3_bucket.exported_data.id
-  policy = data.aws_iam_policy_document.exported_data_bucket.json
+  policy = data.aws_iam_policy_document.exported_data_bucket[0].json
 }
 
 data "aws_iam_policy_document" "exported_data_bucket" {
+  count = local.allow_external_access
+
   statement {
     principals {
       type        = "AWS"
