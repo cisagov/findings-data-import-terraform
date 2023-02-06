@@ -39,3 +39,15 @@ resource "aws_s3_bucket_public_access_block" "exported_data" {
   ignore_public_acls      = true
   restrict_public_buckets = true
 }
+
+# Any objects placed into this bucket should be owned by the bucket
+# owner. This ensures that even if objects are Put by a different
+# account the bucket owning account retains full control over the
+# objects stored here.
+resource "aws_s3_bucket_ownership_controls" "exported_data" {
+  bucket = aws_s3_bucket.exported_data.id
+
+  rule {
+    object_ownership = "BucketOwnerEnforced"
+  }
+}
