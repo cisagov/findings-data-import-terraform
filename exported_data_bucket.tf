@@ -11,9 +11,6 @@ resource "aws_s3_bucket" "exported_data" {
   }
 
   lifecycle {
-    ignore_changes = [
-      server_side_encryption_configuration
-    ]
     prevent_destroy = true
   }
 }
