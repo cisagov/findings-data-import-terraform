@@ -1,6 +1,8 @@
 # findings-data-import-terraform #
 
 [![GitHub Build Status](https://github.com/cisagov/findings-data-import-terraform/workflows/build/badge.svg)](https://github.com/cisagov/findings-data-import-terraform/actions)
+[![License](https://img.shields.io/github/license/cisagov/findings-data-import-terraform)](https://spdx.org/licenses/)
+[![CodeQL](https://github.com/cisagov/findings-data-import-terraform/workflows/CodeQL/badge.svg)](https://github.com/cisagov/findings-data-import-terraform/actions/workflows/codeql-analysis.yml)
 
 This project creates the resources used to import findings data into AWS.
 
