@@ -62,14 +62,14 @@ tags = {
 ## Requirements ##
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | terraform | ~> 1.1 |
 | aws | ~> 4.9 |
 
 ## Providers ##
 
 | Name | Version |
-|------|---------|
+| ---- | ------- |
 | aws | ~> 4.9 |
 
 ## Modules ##
@@ -79,7 +79,7 @@ No modules.
 ## Resources ##
 
 | Name | Type |
-|------|------|
+| ---- | ---- |
 | [aws_iam_access_key.exported_data_write](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_access_key) | resource |
 | [aws_iam_user.exported_data_write](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user) | resource |
 | [aws_iam_user_policy.exported_data_write_policy](https://registry.terraform.io/providers/hashicorp/aws/latest/docs/resources/iam_user_policy) | resource |
@@ -95,7 +95,7 @@ No modules.
 ## Inputs ##
 
 | Name | Description | Type | Default | Required |
-|------|-------------|------|---------|:--------:|
+| ---- | ----------- | ---- | ------- | :------: |
 | aws\_region | The AWS region to deploy into (e.g. us-east-1). | `string` | `"us-east-1"` | no |
 | findings\_data\_bucket\_access\_role\_arn | The ARN of the IAM role that is allowed to access the S3 bucket containing the findings data. | `string` | `""` | no |
 | findings\_data\_bucket\_object\_key\_pattern | The key pattern specifying which objects are allowed to be written to the findings data S3 bucket. | `string` | `"*-data.json"` | no |
